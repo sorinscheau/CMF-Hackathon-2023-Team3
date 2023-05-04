@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=c, initial-scale=1.0" />
+    <title>Log in</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        font-family: sans-serif;
+      }
+
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        background-color: #081113;
+        color: #e8f0f7;
+      }
+
+      h1 {
+        margin-bottom: 1.6rem;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 2.4rem;
+        padding: 1.8rem 1.8rem;
+        background-color: #131c1e;
+        border: 1px solid #e8f0f7;
+        border-radius: 7px;
+      }
+
+      .form__field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+
+      .form__field label {
+        font-size: 1.2rem;
+      }
+
+      .form__field input {
+        font-size: 1.4rem;
+        padding: 0.4rem 0.8rem;
+        border-radius: 7px;
+        color: #131c1e;
+        background-color: #e8f0f7;
+      }
+
+      input:focus {
+        outline: none;
+        box-shadow: 0 0 0 5px rgba(81, 204, 238, 0.378);
+      }
+
+      .btn__group {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .btn__group button {
+        margin-top: 1.2rem;
+        width: 40%;
+        font-size: 1.2rem;
+        border-radius: 100px;
+      }
+
+      button {
+        padding: 0.4rem 0.6rem;
+        border: none;
+        background-color: #e8f0f7;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+      }
+
+      button:hover {
+        background-color: #bac5d3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Login & Signup</h1>
+    <form id="login-form">
+      <div class="form__field">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          placeholder="Type your username"
+        />
+      </div>
+      <div class="form__field">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          placeholder="Type your password"
+        />
+      </div>
+      <div class="btn__group">
+        <button id="btn-login" class="btn">Login</button>
+        <button id="btn-register" class="btn">Register</button>
+      </div>
+    </form>
+
+    <script>
+            const form = document.querySelector("#login-form"),
+              formButtons = document.querySelectorAll(".btn");
+
+            formButtons.forEach((button) => {
+              button.addEventListener("click", (event) => {
+                event.preventDefault();
+                let eventType;
+
+                if (event.target.id === "btn-login") {
+                  eventType = "login";
+                }
+
+                if (event.target.id === "btn-register") {
+                  eventType = "register";
+                }
+
+                submitLoginOrRegisterForm(eventType)
+                  .then((response) => {
+                    const user = document.getElementById("username").value;
+                    if (response.status === 200) {
+                      console.log(`${eventType} successful`);
+                      location.replace(`/recordsound?username=` + user);
+                    }
+                    if (response.status === 401) {
+                      console.log(`${eventType} failed`);
+                    }
+                  })
+                  .catch((error) => {
+                    console.log(`Error when trying to ${eventType}: ${error}`);
+                  });
+              });
+            });
+
+            function submitLoginOrRegisterForm(eventType) {
+              const username = document.getElementById("username").value;
+              const password = document.getElementById("password").value;
+
+              return fetch(`/${eventType}`, {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, password }),
+              });
+            }
+    </script>
+  </body>
+</html>
