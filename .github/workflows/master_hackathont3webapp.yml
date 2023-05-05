@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'hackathonT3WebApp'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4D9D795950E4945A2B7DB9FD2057DF4 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9D46FF1DC111460A892517C6B1F1EAA0 }}
