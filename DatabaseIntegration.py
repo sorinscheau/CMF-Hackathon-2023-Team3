@@ -20,11 +20,7 @@ users_table = Table('Users')
 #               'TrustServerCertificate=False;' \
 #               'Connection Timeout=30;'
 
-print('DRIVER=' + driver +
-                        ';SERVER=' + server +
-                        ';PORT=1433;DATABASE=' + database +
-                        ';UID=' + db_username +
-                        ';PWD=' + db_password)
+print('DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + database + ';UID=' + db_username + ';PWD=' + db_password)
 
 def create_table(table_name):
     tabl = Table(table_name)
