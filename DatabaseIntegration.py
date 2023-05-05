@@ -20,14 +20,15 @@ users_table = Table('Users')
 #               'TrustServerCertificate=False;' \
 #               'Connection Timeout=30;'
 
-print('DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + database + ';UID=' + db_username + ';PWD=' + db_password)
-
 def create_table(table_name):
     tabl = Table(table_name)
     client_username = Column("username", "VARCHAR(100)")
     client_hash = Column("hash", "VARCHAR(100)")
     create_table_query = Query.create_table(tabl).columns(client_username, client_hash)
+    
+    print('DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + database + ';UID=' + db_username + ';PWD=' + db_password)
 
+    
     with pyodbc.connect('DRIVER=' + driver +
                         ';SERVER=' + server +
                         ';PORT=1433;DATABASE=' + database +
