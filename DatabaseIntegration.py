@@ -26,9 +26,6 @@ def create_table(table_name):
     client_hash = Column("hash", "VARCHAR(100)")
     create_table_query = Query.create_table(tabl).columns(client_username, client_hash)
     
-    print('DRIVER=' + driver + ';SERVER=' + server + ';PORT=1433;DATABASE=' + database + ';UID=' + db_username + ';PWD=' + db_password)
-
-    
     with pyodbc.connect('DRIVER=' + driver +
                         ';SERVER=' + server +
                         ';PORT=1433;DATABASE=' + database +
